@@ -1,0 +1,40 @@
+/*Вид кнопок для всех aside*/
+.btn{
+	padding: 10px;
+	border: 1px solid gold;
+	display: inline-block;
+	border-radius: 8px;		
+	cursor:pointer;			
+	transition: background-color 0.3s linear;		
+}
+
+.btn a{
+	text-decoration: none;	
+	color:#5d1d31;					
+}
+.btn:hover{
+	background-color: orange;								
+}
+
+
+
+
+.pagination{
+	text-align:center;
+	margin: 20px;
+}
+.step_links a{
+	
+	text-decoration:none;
+	color:black;
+	border-radius:5px;
+	
+	transition: 1s;
+	background-color: aliceblue;
+	padding: 3px 10px;
+	margin: 50px;
+}
+
+.step_links a:hover{
+	background-color: lightblue;
+}

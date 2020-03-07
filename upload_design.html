@@ -1,0 +1,787 @@
+<!DOCTYPE html>
+<!-- saved from url=(0028)http://127.0.0.1:8000/users/ -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		
+		
+		<title>
+
+	Профиль
+	
+</title>
+		
+		<link rel="stylesheet" href="./upload_design_files/base.css">
+		
+
+	
+	
+	<script type="text/javascript" defer="" async="" src="./upload_design_files/uaest.js.Без названия"></script><script src="./upload_design_files/ajax.js.Без названия"></script>
+	
+	<script src="./upload_design_files/base.js.Без названия"></script>
+	
+	<script src="./upload_design_files/common.js.Без названия"></script> 
+	
+	<script src="./upload_design_files/snippet.js.Без названия"></script> 
+
+
+	<link rel="stylesheet" href="./upload_design_files/aside.css"> 
+	<link rel="stylesheet" href="./upload_design_files/detail.css"> 
+	
+
+		<link id="dynamic_link" rel="stylesheet" href="./upload_design_files/profile_list_2.css"> 
+		
+	
+
+		<link id="dynamic_link" rel="stylesheet" href="./upload_design_files/article_block.css"> 
+		
+	
+
+		<link id="dynamic_link" rel="stylesheet" href="./upload_design_files/modal.css"> 
+		
+	
+
+		<link id="dynamic_link" rel="stylesheet" href="./upload_design_files/user_block.css"> 
+		
+	
+	<script src="./upload_design_files/detail.js.Без названия"></script>
+	
+
+	<!--<link rel="stylesheet" href="/static/style/modal.css"> -->
+	
+	<script src="./upload_design_files/custom.js.Без названия"></script>
+	<script src="./upload_design_files/user.js.Без названия" id="dynamic_c_user">
+	
+	</script>
+	
+		
+		<style>
+		
+			
+					
+
+			
+	.modal_header{
+		 padding-left:30px;
+		 font-family:calibri;
+		 color:gray;width:70%;
+	}
+					
+			
+		</style>
+		
+		<style id="dynamic_style">
+			
+		</style>
+		
+		<script>
+		
+			
+		
+				
+				dom = document;
+                dom.obj = document.getElementById;
+                dom.get = document.querySelector;
+				loc = document.location;
+				
+				/*!
+					Универсальная функция частичной перезагрузки страницы
+					
+					Пока для кнопок и ссылок. 
+				*/
+				
+				
+				window.onload = function()
+				{
+				
+				
+					var routes
+						= document.querySelectorAll('[data-_refresh]');
+					
+					for (var way in routes){
+						routes[way].onclick = fragment_refresh;
+					}
+				
+					/*! ерунда:
+					var menu = document.querySelector('nav');
+					var points = menu.getElementsByTagName('section_nav');
+					*/
+					
+					
+					/*
+					dom.obj('me').onclick = function(e){
+						
+						if (!window.atob) return true;
+						else e.preventDefault();
+
+						alert('me____me');
+					}//*/
+					
+					//document.querySelector('#_dialogs').onclick =
+						
+					
+
+	reInit();
+
+	/*! detail	
+	var friReader = new Ajax("/get_friends/", async_get_friends);
+	friReader.postData('id=0');           //0- юзер сам. в бд от 1 счет //*/
+	
+
+				}
+				
+				
+				
+			
+
+
+		// параметры, передаваемые в статические файлы:
+		var _note_create = "/note_create/";
+		var _get_dialog = '/get_dialog/';
+		var _dialog = "/messages/to_16/";  //исходная страница юзера с неизм ид профиля
+		
+		
+		function scroll_adaptive(event){
+			
+			if (document.body.clientWidth > 800) return true;
+			
+			document.querySelector('#header').innerText = pageYOffset;
+			if (pageYOffset == 0){
+				document.querySelector('.main').style.display = 'block';
+				document.querySelector('.main').style.top = '150px';	
+			}
+			if (pageYOffset < 500){//>
+				document.querySelector('.main').style.top =(150 - pageYOffset) + 'px';
+				document.querySelector('.main').style.display = 'block';
+			}
+			else if (pageYOffset > 500)
+			{
+				document.querySelector('.main').style.display = 'none';
+				document.querySelector('.main').style.top = '-50px';
+			}
+			
+		}
+
+		window.onscroll = function(event)
+		{
+			scroll_adaptive(event);
+		}
+
+
+		</script>
+		
+		
+		
+	<style>@font-face{font-family:uc-nexus-iconfont;src:url(chrome-extension://pogijhnlcfmcppgimcaccdkmbedjkmhi/res/font_9qmmi8b8jsxxbt9.woff) format('woff'),url(chrome-extension://pogijhnlcfmcppgimcaccdkmbedjkmhi/res/font_9qmmi8b8jsxxbt9.ttf) format('truetype')}</style></head>
+
+	<body>
+
+	
+		<div class="header">
+			<header>
+		
+				<div class="nav" id="nav">
+				
+					
+						<a style="display:inline-block;float:left;position:relative;cursor:pointer;z-index:10" href="http://127.0.0.1:8000/users/16/">
+							<img style="border-radius: 25px;position:relative;top:5px;left:45px;" src="./upload_design_files/cb8b8fc3-b450-4338-80b5-c8a1b93ec58a_NVRYUG1_YWR4t5P.jpg" height="50" width="50">
+						</a>
+							
+				
+					<nav>						
+										
+							
+						    <a id="me" name="16" href="http://127.0.0.1:8000/users/16/" class="section_nav" data-_refresh="main&gt;age.*,section,header,aside&gt;inside" data-_require="aside">
+							
+									К себе
+									
+							</a><!--
+							--><a href="http://127.0.0.1:8000/messages/" id="_dialogs" class="section_nav" data-_refresh="content" data-_require="aside">
+									
+									Общение
+									
+							</a><!--
+							--><a href="http://127.0.0.1:8000/communities/" id="_groups" class="section_nav" data-_refresh="content" data-_require="aside">
+								
+									Сообщества
+								
+							</a><!--
+							
+							--><a href="http://127.0.0.1:8000/signout/" class="section_nav">
+								
+									Выйти
+								
+							</a> 							
+								
+						
+					</nav>			
+				</div>
+				<h2 id="header"> 
+	<b id="username">
+		 
+		 
+	</b>
+
+</h2>
+				
+				
+			</header>
+			
+		</div>				
+			
+
+		<div id="content" class="come"><div id="main"><ul class="profiles_list">
+
+
+<!-- User.Status -->
+<li data-_refresh="content" data-to="/users/1/" id="us_1">
+
+<h3>asd fgh 123123</h3>
+
+<div class="i_desc">Male: 29Sex: jenshina
+
+</div>
+
+<div class="logo">
+<div></div>
+</div>
+
+<div onclick="friend_act(this,event)" class="i_mnu">
+<!-- button 12456 -->
+
+<button class="to_friend sended">Reconside</button>
+
+
+</div>
+</li>
+
+
+<!-- User.Status -->
+<li data-_refresh="content" data-to="/users/2/" id="us_2">
+
+<h3>asd1 asd 123123</h3>
+
+<div class="i_desc">Male: 29Sex: jenshina
+
+</div>
+
+<div class="logo">
+<div></div>
+</div>
+
+<div onclick="friend_act(this,event)" class="i_mnu">
+<!-- button 12456 -->
+
+<button class="to_friend">To_friend</button>
+
+
+</div>
+</li>
+
+
+<!-- User.Status -->
+<li data-_refresh="content" data-to="/users/3/" id="us_3">
+
+<h3>asd2224454545 asd111 123123</h3>
+
+<div class="i_desc">Male: 29Sex: jenshina
+
+</div>
+
+<div class="logo"></div>
+
+<div onclick="friend_act(this,event)" class="i_mnu">
+<!-- button 12456 -->
+
+<button class="to_friend sended">Reconside</button>
+
+
+</div>
+</li>
+
+
+<!-- User.Status -->
+<li data-_refresh="content" data-to="/users/4/" id="us_4">
+
+<h3>ads123 1 123123</h3>
+
+<div class="i_desc">Male: 29Sex: jenshina
+
+</div>
+
+<div class="logo"></div>
+
+<div onclick="friend_act(this,event)" class="i_mnu">
+<!-- button 12456 -->
+
+<button class="to_friend sended">Reconside</button>
+
+
+</div>
+</li>
+
+
+<!-- User.Status -->
+<li data-_refresh="content" data-to="/users/5/" id="us_5">
+
+<h3>asd555 asd 123123</h3>
+
+<div class="i_desc">Male: 29Sex: jenshina
+
+</div>
+
+<div class="logo"></div>
+
+<div onclick="friend_act(this,event)" class="i_mnu">
+<!-- button 12456 -->
+
+<button class="to_friend">To_friend</button>
+
+
+</div>
+</li>
+
+
+<input type="hidden" name="csrfmiddlewaretoken" value="AfpuooWTcXFR0tFN4H1Imy4rjYQQ5iEOpb2wySnfMUZyr3AgvZeBnaASBGIQJ6cE">
+
+
+
+
+
+
+<div class="pagination">
+ <span class="step_links">
+  
+<a href="http://127.0.0.1:8000/users/?page=4">
+previous
+</a>
+  
+
+  <span class="current">
+      Page
+1 
+   of
+4
+  </span>
+
+  
+<a href="http://127.0.0.1:8000/users/?page=2">
+next
+</a>
+
+ </span>
+</div>
+
+
+
+
+
+
+</ul></div><div id="section"></div></div>	
+
+		
+		<div id="aside"> 
+			
+			
+
+	<div class="aside">
+	
+
+		<aside>
+		
+			
+			<div class="aside_menu">
+			
+				
+				<a href="http://127.0.0.1:8000/users/" data-_refresh="content">
+					<div class="aside_btn">Все</div>
+				</a> 
+				
+				<!--остальные юзеры добавляются динамическим ajax-->
+			<div id="un20" class="friend_pick" data-_refresh="main&gt;age.*,section,header,aside&gt;inside" data-to="/users/20/"><img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAgGBgcGBQgHBwcJCQgKDBQNDAsLDBkSEw8UHRofHh0aHBwgJC4nICIsIxwcKDcpLDAxNDQ0Hyc5PTgyPC4zNDL/2wBDAQkJCQwLDBgNDRgyIRwhMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjL/wAARCAAoACgDASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwDqYbm3ZHtluvs9tbp9132sxPoO/NZfia9aw+yJDapqN1Mdtuj8lD3yQeR+NJPJM0k9pERKiDaGMSgkEevXIqWHzItZV4dPmvpbO3wkMZAOSAMkn8a8ekk56nTFcxnvJ4ls4hdXllDY24G4mDDlT67c1aktluNItmsYVeZyX+0o3pzkd89a2b6+uor2Ozl0uZopU+eRWBEZPUEe1cX4cnnjh1XREmaGe1uDJEWOAyZKn+YrevG0bxG9Fc2ri8t4ZEgclLnI8x1O5X9c5ODRVzT9HttZV4JopYHjALMwAx9D74orlhFyV2RdvVGzqWixNerBbw/vbpxIdr7GA749O9cvc3N1oPxFvkaUrbXMQijYuflbjGT7kEfiK7vVLw6cttezIF+zptw7Dn8eufYV5L4n1q31O+8pw0EmQAWH316g/wA66KcLScl1HTTR2Et1cp51xeTBY1JJ+bJI9q4Xw7cTarrVxqDxhIpVdEwOdpYkZ98CtlLSR9FuHRmMhhKsPXiszwxfQWUkMc0O6BYCpA67j3q53lFo2lrojttDvr2O7+yW8wlij+dg+AT7dKKfoMdnBplxqNnH5+Wz5oGWXHXIPQiiuWMXBWbOdJLRs8++IPiifVPEUtsLg/ZoCY0A4XI6n881ycWHkUzs7RjkgHOP8KKK9tJJJHXGx2Vr4rltNPMcey52jgT5DEfUdfxrm/7df+0PPEAiBbO1DwM9etFFTKnHsVVitGju/DF7c2VxPc6agliOxpbZXyXDgjgd8EfhRRRXjV5NVGebiG1U0P/Z" style="float: left; border-radius: 20px; margin: 10px 0px 0px 10px;"><span style="padding-left: 9%;">admin2sgdgdgdfg</span></div></div>
+			
+			<div id="inside" data-state="">
+			
+			
+				
+	
+		
+	<button id="note_create" onclick="Note.createView(this,event);">
+		
+		
+		Создать запись
+	</button>
+	
+
+
+			</div>
+			
+		</aside>
+	</div>				
+				
+
+		
+		</div>		
+		
+	
+<link rel="stylesheet" href="./upload_design_files/print.css" type="text/css" media="print">
+<link rel="stylesheet" href="./upload_design_files/toolbar.css" type="text/css">
+<script src="./upload_design_files/toolbar.js.Без названия" defer=""></script>
+<div id="djDebug" class="djdt-hidden" dir="ltr" data-store-id="29d6b449557c4459824a829e01cf4e9b" data-render-panel-url="/__debug__/render_panel/" style="display: block;">
+	<div class="djdt-hidden" id="djDebugToolbar" style="display: none;">
+		<ul id="djDebugPanelList">
+			
+			<li><a id="djHideToolBarButton" href="http://127.0.0.1:8000/users/#" title="Скрыть панель">Скрыть »</a></li>
+			
+			
+				<li class="djDebugPanelButton">
+					<input type="checkbox" data-cookie="djdtVersionsPanel" checked="" title="Отключить для последующих запросов">
+					
+						<a href="http://127.0.0.1:8000/users/#" title="Версии" class="VersionsPanel">
+					
+					Версии
+					
+					
+						<br><small>Django 1.11.17</small>
+					
+					
+					
+						</a>
+					
+				</li>
+			
+				<li class="djDebugPanelButton">
+					<input type="checkbox" data-cookie="djdtTimerPanel" checked="" title="Отключить для последующих запросов">
+					
+						<div class="djdt-contentless">
+					
+					Время
+					
+					
+						<br><small>Итого: 126.00 мс</small>
+					
+					
+					
+						</div>
+					
+				</li>
+			
+				<li class="djDebugPanelButton">
+					<input type="checkbox" data-cookie="djdtSettingsPanel" checked="" title="Отключить для последующих запросов">
+					
+						<a href="http://127.0.0.1:8000/users/#" title="Настройки из &lt;code&gt;hello.settings&lt;/code&gt;" class="SettingsPanel">
+					
+					Настройки
+					
+					
+						
+					
+					
+					
+						</a>
+					
+				</li>
+			
+				<li class="djDebugPanelButton">
+					<input type="checkbox" data-cookie="djdtHeadersPanel" checked="" title="Отключить для последующих запросов">
+					
+						<a href="http://127.0.0.1:8000/users/#" title="Заголовки" class="HeadersPanel">
+					
+					Заголовки
+					
+					
+						
+					
+					
+					
+						</a>
+					
+				</li>
+			
+				<li class="djDebugPanelButton">
+					<input type="checkbox" data-cookie="djdtRequestPanel" checked="" title="Отключить для последующих запросов">
+					
+						<a href="http://127.0.0.1:8000/users/#" title="Запрос" class="RequestPanel">
+					
+					Запрос
+					
+					
+						<br><small>UserView</small>
+					
+					
+					
+						</a>
+					
+				</li>
+			
+				<li class="djDebugPanelButton">
+					<input type="checkbox" data-cookie="djdtSQLPanel" checked="" title="Отключить для последующих запросов">
+					
+						<a href="http://127.0.0.1:8000/users/#" title="SQL queries from 1 connection" class="SQLPanel">
+					
+					SQL
+					
+					
+						<br><small>4 queries in 3.00ms</small>
+					
+					
+					
+						</a>
+					
+				</li>
+			
+				<li class="djDebugPanelButton">
+					<input type="checkbox" data-cookie="djdtStaticFilesPanel" checked="" title="Отключить для последующих запросов">
+					
+						<a href="http://127.0.0.1:8000/users/#" title="Файлов статики (вего: 141, использовано: 11)" class="StaticFilesPanel">
+					
+					Статика
+					
+					
+						<br><small>11 файлов используются</small>
+					
+					
+					
+						</a>
+					
+				</li>
+			
+				<li class="djDebugPanelButton">
+					<input type="checkbox" data-cookie="djdtTemplatesPanel" checked="" title="Отключить для последующих запросов">
+					
+						<a href="http://127.0.0.1:8000/users/#" title="Шаблоны (обработано 7)" class="TemplatesPanel">
+					
+					Шаблоны
+					
+					
+						<br><small>user.html</small>
+					
+					
+					
+						</a>
+					
+				</li>
+			
+				<li class="djDebugPanelButton">
+					<input type="checkbox" data-cookie="djdtCachePanel" checked="" title="Отключить для последующих запросов">
+					
+						<a href="http://127.0.0.1:8000/users/#" title="Обращения к кешу от 1 бэкенда" class="CachePanel">
+					
+					Кеш
+					
+					
+						<br><small>0 обращений за 0.00 мс</small>
+					
+					
+					
+						</a>
+					
+				</li>
+			
+				<li class="djDebugPanelButton">
+					<input type="checkbox" data-cookie="djdtSignalsPanel" checked="" title="Отключить для последующих запросов">
+					
+						<a href="http://127.0.0.1:8000/users/#" title="Сигналы" class="SignalsPanel">
+					
+					Сигналы
+					
+					
+						<br><small>10 получателей 12 сигнала(ов)</small>
+					
+					
+					
+						</a>
+					
+				</li>
+			
+				<li class="djDebugPanelButton">
+					<input type="checkbox" data-cookie="djdtLoggingPanel" checked="" title="Отключить для последующих запросов">
+					
+						<a href="http://127.0.0.1:8000/users/#" title="Сообщения в логе" class="LoggingPanel">
+					
+					Логи
+					
+					
+						<br><small>0 сообщений</small>
+					
+					
+					
+						</a>
+					
+				</li>
+			
+				<li class="djDebugPanelButton">
+					<input type="checkbox" data-cookie="djdtRedirectsPanel" title="Включить для последующих запросов">
+					
+						<div class="djdt-contentless djdt-disabled">
+					
+					Перехватывать перенаправления
+					
+					
+						</div>
+					
+				</li>
+			
+		</ul>
+	</div>
+	<div class="djdt-hidden" id="djDebugToolbarHandle" style="display: block;">
+		<span title="Показать панель" id="djShowToolBarButton">«</span>
+	</div>
+	
+		
+			<div id="VersionsPanel" class="djdt-panelContent" style="display: none;">
+				<div class="djDebugPanelTitle">
+					<a href="http://127.0.0.1:8000/users/" class="djDebugClose"></a>
+					<h3>Версии</h3>
+				</div>
+				<div class="djDebugPanelContent">
+					
+					<img src="./upload_design_files/ajax-loader.gif" alt="loading" class="djdt-loader">
+					<div class="djdt-scroll"></div>
+					
+				</div>
+			</div>
+		
+	
+		
+	
+		
+			<div id="SettingsPanel" class="djdt-panelContent" style="display: none;">
+				<div class="djDebugPanelTitle">
+					<a href="http://127.0.0.1:8000/users/" class="djDebugClose"></a>
+					<h3>Настройки из <code>hello.settings</code></h3>
+				</div>
+				<div class="djDebugPanelContent">
+					
+					<img src="./upload_design_files/ajax-loader.gif" alt="loading" class="djdt-loader">
+					<div class="djdt-scroll"></div>
+					
+				</div>
+			</div>
+		
+	
+		
+			<div id="HeadersPanel" class="djdt-panelContent" style="display: none;">
+				<div class="djDebugPanelTitle">
+					<a href="http://127.0.0.1:8000/users/" class="djDebugClose"></a>
+					<h3>Заголовки</h3>
+				</div>
+				<div class="djDebugPanelContent">
+					
+					<img src="./upload_design_files/ajax-loader.gif" alt="loading" class="djdt-loader">
+					<div class="djdt-scroll"></div>
+					
+				</div>
+			</div>
+		
+	
+		
+			<div id="RequestPanel" class="djdt-panelContent" style="display: none;">
+				<div class="djDebugPanelTitle">
+					<a href="http://127.0.0.1:8000/users/" class="djDebugClose"></a>
+					<h3>Запрос</h3>
+				</div>
+				<div class="djDebugPanelContent">
+					
+					<img src="./upload_design_files/ajax-loader.gif" alt="loading" class="djdt-loader">
+					<div class="djdt-scroll"></div>
+					
+				</div>
+			</div>
+		
+	
+		
+			<div id="SQLPanel" class="djdt-panelContent" style="display: none;">
+				<div class="djDebugPanelTitle">
+					<a href="http://127.0.0.1:8000/users/" class="djDebugClose"></a>
+					<h3>SQL queries from 1 connection</h3>
+				</div>
+				<div class="djDebugPanelContent">
+					
+					<img src="./upload_design_files/ajax-loader.gif" alt="loading" class="djdt-loader">
+					<div class="djdt-scroll"></div>
+					
+				</div>
+			</div>
+		
+	
+		
+			<div id="StaticFilesPanel" class="djdt-panelContent" style="display: none;">
+				<div class="djDebugPanelTitle">
+					<a href="http://127.0.0.1:8000/users/" class="djDebugClose"></a>
+					<h3>Файлов статики (вего: 141, использовано: 11)</h3>
+				</div>
+				<div class="djDebugPanelContent">
+					
+					<img src="./upload_design_files/ajax-loader.gif" alt="loading" class="djdt-loader">
+					<div class="djdt-scroll"></div>
+					
+				</div>
+			</div>
+		
+	
+		
+			<div id="TemplatesPanel" class="djdt-panelContent" style="display: none;">
+				<div class="djDebugPanelTitle">
+					<a href="http://127.0.0.1:8000/users/" class="djDebugClose"></a>
+					<h3>Шаблоны (обработано 7)</h3>
+				</div>
+				<div class="djDebugPanelContent">
+					
+					<img src="./upload_design_files/ajax-loader.gif" alt="loading" class="djdt-loader">
+					<div class="djdt-scroll"></div>
+					
+				</div>
+			</div>
+		
+	
+		
+			<div id="CachePanel" class="djdt-panelContent" style="display: none;">
+				<div class="djDebugPanelTitle">
+					<a href="http://127.0.0.1:8000/users/" class="djDebugClose"></a>
+					<h3>Обращения к кешу от 1 бэкенда</h3>
+				</div>
+				<div class="djDebugPanelContent">
+					
+					<img src="./upload_design_files/ajax-loader.gif" alt="loading" class="djdt-loader">
+					<div class="djdt-scroll"></div>
+					
+				</div>
+			</div>
+		
+	
+		
+			<div id="SignalsPanel" class="djdt-panelContent" style="display: none;">
+				<div class="djDebugPanelTitle">
+					<a href="http://127.0.0.1:8000/users/" class="djDebugClose"></a>
+					<h3>Сигналы</h3>
+				</div>
+				<div class="djDebugPanelContent">
+					
+					<img src="./upload_design_files/ajax-loader.gif" alt="loading" class="djdt-loader">
+					<div class="djdt-scroll"></div>
+					
+				</div>
+			</div>
+		
+	
+		
+			<div id="LoggingPanel" class="djdt-panelContent" style="display: none;">
+				<div class="djDebugPanelTitle">
+					<a href="http://127.0.0.1:8000/users/" class="djDebugClose"></a>
+					<h3>Сообщения в логе</h3>
+				</div>
+				<div class="djDebugPanelContent">
+					
+					<img src="./upload_design_files/ajax-loader.gif" alt="loading" class="djdt-loader">
+					<div class="djdt-scroll"></div>
+					
+				</div>
+			</div>
+		
+	
+		
+	
+	<div id="djDebugWindow" class="djdt-panelContent" style="display: none;"></div>
+</div>
+
+
+</body></html>

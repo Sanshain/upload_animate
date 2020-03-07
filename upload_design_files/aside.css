@@ -1,0 +1,95 @@
+/* в дальнейшем можно заменить позиционирование по id с подтягиванием соответствующих css, хотя это не во всех случаях верно. Пока пробуем так: */
+
+#content{
+	margin-right: 22%;		/*только для ie8*/
+	
+	margin-right: 16em;		/* ie9+ */
+}
+
+
+/*область aside - позиционирование */
+.aside{	
+	display:inline-block;	/*_*/
+	z-index:1;				/*_*/
+	position:fixed;
+	right:0;				/*только для ie8*/
+	top:150px;				/*_*/
+	
+	width:21%;				/*только для ie8*/
+	/*max-width: 15em;		/*только для ie8 ?-> media*/
+	
+	left:calc(100vw - 15em);/*ie9+*/
+	
+}
+
+/* декорирование меню внутри aside */
+.aside_menu{
+	height: 300px;
+	min-height: calc(100vh - 240px); /* 70vh */
+	
+	border: 1px solid lightgray;
+	border-radius: 8px 0px 0px 8px;
+	/*margin-top: 10px;*/
+	margin-right: -1px;
+	overflow: hidden;
+}
+
+
+
+/* Кнопка `все` сверху меню */
+.aside_btn{
+	width: 100%;
+	box-sizing:border-box;
+	border: None;
+	border-bottom: 1px solid orange;
+	border-radius: 0px;
+	
+	padding: 10px;
+	display: inline-block;
+	cursor:pointer;			
+	transition: 0.5s linear;		
+	
+	font-family: sans-serif;
+    color: darkgray;	
+}
+
+.aside_btn a{
+	text-decoration: none;		
+	color:#5d1d31;						
+}
+.aside_btn:hover{
+	background-color: orange;
+	color: brown;
+}
+
+
+
+/* имя юзера в aside-menu */
+.aside_menu .friend_pick{	
+	transition:0.2s;
+	cursor:pointer;
+	margin-bottom: 10px;
+	white-space: nowrap;
+	line-height: 60px;
+	
+}
+.aside_menu .friend_pick:hover{
+	background-color:beige;
+}
+
+
+
+
+
+
+
+
+
+
+@media screen and (max-width: 1280px) {
+
+	.aside{
+		width:60px;
+		left:auto;
+	}	
+}

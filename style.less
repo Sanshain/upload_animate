@@ -1,0 +1,141 @@
+
+
+
+@backcolor: lightblue;
+@iheight: 7em;
+
+@import url(https://fonts.googleapis.com/css?family=Tenor+Sans|PT+Serif:400,400italic,700,700italic&subset=latin,cyrillic);
+
+body{
+	padding:15px;
+	
+}
+*{
+  position: relative;
+  font-family:'Tenor Sans', sans-serif;
+}
+body{
+	scroll-behavior:smooth;
+}
+.container{
+  width:75%;
+  position: relative;
+  height:@iheight;/*100px*/
+  
+  padding-right:140px;
+  box-sizing: border-box;
+  
+  background-color: @backcolor;
+  overflow:hidden;
+  white-space:nowrap;
+  margin:auto;
+  margin-bottom:1em;
+  
+}
+
+h3{
+  margin:10px 0 0 20px;
+  font-family:'Tenor Sans', sans-serif;
+}
+
+.i_desc{
+  margin:10px 0 0 20px;
+  display:inline-block;
+  font-size: large;
+  color:brown;
+  width:100%;
+  overflow:hidden;
+  text-overflow:ellipsis;/*just for ie*/
+}
+
+.logo{
+  position: absolute;
+  top:0;
+  right:0;
+  background-color: green;
+  width: @iheight;
+  height: @iheight;
+  
+  transition:1s;
+  z-index:1;
+  opacity:0.8;
+  background: url(http://raduga-shop.ru/wa-data/public/shop/products/18/14/21418/images/23955/23955.96x96.jpg) no-repeat center;  
+  /*background-size:cover;*/
+  border:1px solid;
+}
+
+ 
+
+
+
+
+
+.i_mnu{
+  position:absolute;
+  bottom:-40px;
+  
+  border-radius:15px 0px 0 0;
+  overflow:hidden;
+  right:@iheight;
+  
+  background-color: beige;
+  transition: opacity 1s, bottom 1s ease-out;
+
+  opacity:0;
+}
+.container:hover>.i_mnu{
+  bottom:0px;
+  opacity:0.95;
+}
+
+button{
+  transition:1s;
+  
+  padding:10px;
+  cursor: pointer; 
+  color:#98846d;
+  border:none;
+  /*border:1px burlywood solid;*/
+}
+button:hover{
+  background-color: orange;
+  color:black;
+}
+
+
+
+
+
+
+
+@dots_color: lighten(blue, 20%); //#2a2aa5; //brown
+
+.await_animate{
+  margin:auto;
+  width:100%;
+  height:2em;
+  
+  text-align:center;
+  cursor:pointer;
+  line-height:30px;
+  opacity: 0;
+  transition:0.5s;
+}
+.await_animate .circle{
+  background-color: lightgray;
+  width:1rem;
+  height:1em;		  
+  margin-left:1em;
+  margin-right:1em;
+  display:inline-block;
+  transition:1s;
+border-radius:0.5em;
+
+}
+.await_animate .active{
+	/*height:2em;*/
+	/*width:2em;*/
+	background-color:@dots_color;
+
+	box-shadow: 0px 0px 5px 5px @dots_color;    
+}

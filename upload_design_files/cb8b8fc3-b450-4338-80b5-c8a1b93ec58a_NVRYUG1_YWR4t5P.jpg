@@ -1,0 +1,426 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <title>Page not found at /images/static/imagination/cb8b8fc3-b450-4338-80b5-c8a1b93ec58a_NVRYUG1_YWR4t5P.jpg</title>
+  <meta name="robots" content="NONE,NOARCHIVE">
+  <style type="text/css">
+    html * { padding:0; margin:0; }
+    body * { padding:10px 20px; }
+    body * * { padding:0; }
+    body { font:small sans-serif; background:#eee; }
+    body>div { border-bottom:1px solid #ddd; }
+    h1 { font-weight:normal; margin-bottom:.4em; }
+    h1 span { font-size:60%; color:#666; font-weight:normal; }
+    table { border:none; border-collapse: collapse; width:100%; }
+    td, th { vertical-align:top; padding:2px 3px; }
+    th { width:12em; text-align:right; color:#666; padding-right:.5em; }
+    #info { background:#f6f6f6; }
+    #info ol { margin: 0.5em 4em; }
+    #info ol li { font-family: monospace; }
+    #summary { background: #ffc; }
+    #explanation { background:#eee; border-bottom: 0px none; }
+  </style>
+</head>
+<body>
+  <div id="summary">
+    <h1>Page not found <span>(404)</span></h1>
+    <table class="meta">
+      <tr>
+        <th>Request Method:</th>
+        <td>GET</td>
+      </tr>
+      <tr>
+        <th>Request URL:</th>
+        <td>http://127.0.0.1:8000/images/static/imagination/cb8b8fc3-b450-4338-80b5-c8a1b93ec58a_NVRYUG1_YWR4t5P.jpg</td>
+      </tr>
+      
+      <tr>
+        <th>Raised by:</th>
+        <td>django.views.static.serve</td>
+      </tr>
+      
+    </table>
+  </div>
+  <div id="info">
+    
+      <p>&quot;D:\_github\django_test\media\static\imagination\cb8b8fc3-b450-4338-80b5-c8a1b93ec58a_NVRYUG1_YWR4t5P.jpg&quot; не существует</p>
+    
+  </div>
+
+  <div id="explanation">
+    <p>
+      You're seeing this error because you have <code>DEBUG = True</code> in
+      your Django settings file. Change that to <code>False</code>, and Django
+      will display a standard 404 page.
+    </p>
+  </div>
+
+<link rel="stylesheet" href="/static/debug_toolbar/css/print.css" type="text/css" media="print">
+<link rel="stylesheet" href="/static/debug_toolbar/css/toolbar.css" type="text/css">
+<script src="/static/debug_toolbar/js/toolbar.js" defer></script>
+<div id="djDebug" class="djdt-hidden" dir="ltr"
+     
+     data-store-id="44dadeff487944c8b93e513721c483ef"
+     data-render-panel-url="/__debug__/render_panel/"
+     
+     >
+	<div class="djdt-hidden" id="djDebugToolbar">
+		<ul id="djDebugPanelList">
+			
+			<li><a id="djHideToolBarButton" href="#" title="Скрыть панель">Скрыть &#187;</a></li>
+			
+			
+				<li class="djDebugPanelButton">
+					<input type="checkbox" data-cookie="djdtVersionsPanel" checked title="Отключить для последующих запросов">
+					
+						<a href="#" title="Версии" class="VersionsPanel">
+					
+					Версии
+					
+					
+						<br><small>Django 1.11.17</small>
+					
+					
+					
+						</a>
+					
+				</li>
+			
+				<li class="djDebugPanelButton">
+					<input type="checkbox" data-cookie="djdtTimerPanel" checked title="Отключить для последующих запросов">
+					
+						<div class="djdt-contentless">
+					
+					Время
+					
+					
+						<br><small>Итого: 245.00 мс</small>
+					
+					
+					
+						</div>
+					
+				</li>
+			
+				<li class="djDebugPanelButton">
+					<input type="checkbox" data-cookie="djdtSettingsPanel" checked title="Отключить для последующих запросов">
+					
+						<a href="#" title="Настройки из &lt;code&gt;hello.settings&lt;/code&gt;" class="SettingsPanel">
+					
+					Настройки
+					
+					
+						
+					
+					
+					
+						</a>
+					
+				</li>
+			
+				<li class="djDebugPanelButton">
+					<input type="checkbox" data-cookie="djdtHeadersPanel" checked title="Отключить для последующих запросов">
+					
+						<a href="#" title="Заголовки" class="HeadersPanel">
+					
+					Заголовки
+					
+					
+						
+					
+					
+					
+						</a>
+					
+				</li>
+			
+				<li class="djDebugPanelButton">
+					<input type="checkbox" data-cookie="djdtRequestPanel" checked title="Отключить для последующих запросов">
+					
+						<a href="#" title="Запрос" class="RequestPanel">
+					
+					Запрос
+					
+					
+						<br><small>serve</small>
+					
+					
+					
+						</a>
+					
+				</li>
+			
+				<li class="djDebugPanelButton">
+					<input type="checkbox" data-cookie="djdtSQLPanel" checked title="Отключить для последующих запросов">
+					
+						<a href="#" title="SQL queries from 0 connections" class="SQLPanel">
+					
+					SQL
+					
+					
+						<br><small>0 queries in 0.00ms</small>
+					
+					
+					
+						</a>
+					
+				</li>
+			
+				<li class="djDebugPanelButton">
+					<input type="checkbox" data-cookie="djdtStaticFilesPanel" checked title="Отключить для последующих запросов">
+					
+						<a href="#" title="Файлов статики (вего: 141, использовано: 0)" class="StaticFilesPanel">
+					
+					Статика
+					
+					
+						<br><small>0 файлов используются</small>
+					
+					
+					
+						</a>
+					
+				</li>
+			
+				<li class="djDebugPanelButton">
+					<input type="checkbox" data-cookie="djdtTemplatesPanel" checked title="Отключить для последующих запросов">
+					
+						<a href="#" title="Шаблоны (обработано 1)" class="TemplatesPanel">
+					
+					Шаблоны
+					
+					
+						
+					
+					
+					
+						</a>
+					
+				</li>
+			
+				<li class="djDebugPanelButton">
+					<input type="checkbox" data-cookie="djdtCachePanel" checked title="Отключить для последующих запросов">
+					
+						<a href="#" title="Обращения к кешу от 1 бэкенда" class="CachePanel">
+					
+					Кеш
+					
+					
+						<br><small>0 обращений за 0.00 мс</small>
+					
+					
+					
+						</a>
+					
+				</li>
+			
+				<li class="djDebugPanelButton">
+					<input type="checkbox" data-cookie="djdtSignalsPanel" checked title="Отключить для последующих запросов">
+					
+						<a href="#" title="Сигналы" class="SignalsPanel">
+					
+					Сигналы
+					
+					
+						<br><small>10 получателей 12 сигнала(ов)</small>
+					
+					
+					
+						</a>
+					
+				</li>
+			
+				<li class="djDebugPanelButton">
+					<input type="checkbox" data-cookie="djdtLoggingPanel" checked title="Отключить для последующих запросов">
+					
+						<a href="#" title="Сообщения в логе" class="LoggingPanel">
+					
+					Логи
+					
+					
+						<br><small>0 сообщений</small>
+					
+					
+					
+						</a>
+					
+				</li>
+			
+				<li class="djDebugPanelButton">
+					<input type="checkbox" data-cookie="djdtRedirectsPanel" title="Включить для последующих запросов">
+					
+						<div class="djdt-contentless djdt-disabled">
+					
+					Перехватывать перенаправления
+					
+					
+						</div>
+					
+				</li>
+			
+		</ul>
+	</div>
+	<div class="djdt-hidden" id="djDebugToolbarHandle">
+		<span title="Показать панель" id="djShowToolBarButton">&#171;</span>
+	</div>
+	
+		
+			<div id="VersionsPanel" class="djdt-panelContent">
+				<div class="djDebugPanelTitle">
+					<a href="" class="djDebugClose"></a>
+					<h3>Версии</h3>
+				</div>
+				<div class="djDebugPanelContent">
+					
+					<img src="/static/debug_toolbar/img/ajax-loader.gif" alt="loading" class="djdt-loader">
+					<div class="djdt-scroll"></div>
+					
+				</div>
+			</div>
+		
+	
+		
+	
+		
+			<div id="SettingsPanel" class="djdt-panelContent">
+				<div class="djDebugPanelTitle">
+					<a href="" class="djDebugClose"></a>
+					<h3>Настройки из <code>hello.settings</code></h3>
+				</div>
+				<div class="djDebugPanelContent">
+					
+					<img src="/static/debug_toolbar/img/ajax-loader.gif" alt="loading" class="djdt-loader">
+					<div class="djdt-scroll"></div>
+					
+				</div>
+			</div>
+		
+	
+		
+			<div id="HeadersPanel" class="djdt-panelContent">
+				<div class="djDebugPanelTitle">
+					<a href="" class="djDebugClose"></a>
+					<h3>Заголовки</h3>
+				</div>
+				<div class="djDebugPanelContent">
+					
+					<img src="/static/debug_toolbar/img/ajax-loader.gif" alt="loading" class="djdt-loader">
+					<div class="djdt-scroll"></div>
+					
+				</div>
+			</div>
+		
+	
+		
+			<div id="RequestPanel" class="djdt-panelContent">
+				<div class="djDebugPanelTitle">
+					<a href="" class="djDebugClose"></a>
+					<h3>Запрос</h3>
+				</div>
+				<div class="djDebugPanelContent">
+					
+					<img src="/static/debug_toolbar/img/ajax-loader.gif" alt="loading" class="djdt-loader">
+					<div class="djdt-scroll"></div>
+					
+				</div>
+			</div>
+		
+	
+		
+			<div id="SQLPanel" class="djdt-panelContent">
+				<div class="djDebugPanelTitle">
+					<a href="" class="djDebugClose"></a>
+					<h3>SQL queries from 0 connections</h3>
+				</div>
+				<div class="djDebugPanelContent">
+					
+					<img src="/static/debug_toolbar/img/ajax-loader.gif" alt="loading" class="djdt-loader">
+					<div class="djdt-scroll"></div>
+					
+				</div>
+			</div>
+		
+	
+		
+			<div id="StaticFilesPanel" class="djdt-panelContent">
+				<div class="djDebugPanelTitle">
+					<a href="" class="djDebugClose"></a>
+					<h3>Файлов статики (вего: 141, использовано: 0)</h3>
+				</div>
+				<div class="djDebugPanelContent">
+					
+					<img src="/static/debug_toolbar/img/ajax-loader.gif" alt="loading" class="djdt-loader">
+					<div class="djdt-scroll"></div>
+					
+				</div>
+			</div>
+		
+	
+		
+			<div id="TemplatesPanel" class="djdt-panelContent">
+				<div class="djDebugPanelTitle">
+					<a href="" class="djDebugClose"></a>
+					<h3>Шаблоны (обработано 1)</h3>
+				</div>
+				<div class="djDebugPanelContent">
+					
+					<img src="/static/debug_toolbar/img/ajax-loader.gif" alt="loading" class="djdt-loader">
+					<div class="djdt-scroll"></div>
+					
+				</div>
+			</div>
+		
+	
+		
+			<div id="CachePanel" class="djdt-panelContent">
+				<div class="djDebugPanelTitle">
+					<a href="" class="djDebugClose"></a>
+					<h3>Обращения к кешу от 1 бэкенда</h3>
+				</div>
+				<div class="djDebugPanelContent">
+					
+					<img src="/static/debug_toolbar/img/ajax-loader.gif" alt="loading" class="djdt-loader">
+					<div class="djdt-scroll"></div>
+					
+				</div>
+			</div>
+		
+	
+		
+			<div id="SignalsPanel" class="djdt-panelContent">
+				<div class="djDebugPanelTitle">
+					<a href="" class="djDebugClose"></a>
+					<h3>Сигналы</h3>
+				</div>
+				<div class="djDebugPanelContent">
+					
+					<img src="/static/debug_toolbar/img/ajax-loader.gif" alt="loading" class="djdt-loader">
+					<div class="djdt-scroll"></div>
+					
+				</div>
+			</div>
+		
+	
+		
+			<div id="LoggingPanel" class="djdt-panelContent">
+				<div class="djDebugPanelTitle">
+					<a href="" class="djDebugClose"></a>
+					<h3>Сообщения в логе</h3>
+				</div>
+				<div class="djDebugPanelContent">
+					
+					<img src="/static/debug_toolbar/img/ajax-loader.gif" alt="loading" class="djdt-loader">
+					<div class="djdt-scroll"></div>
+					
+				</div>
+			</div>
+		
+	
+		
+	
+	<div id="djDebugWindow" class="djdt-panelContent"></div>
+</div>
+</body>
+</html>
