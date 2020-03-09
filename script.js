@@ -89,27 +89,37 @@ function upload_animate(event, clback){
 		if (pages_links[0].className.indexOf('active') == 0){
 			
 			pages_links[0].className = '';
-			pages_links[0].children[0].href = '#page_'+ 2;
+			pages_links[0].children[0].href = '#page_'+ 1;
 			pages_links[1].className = 'active';
 			
 		}
-		else for (var i=0;i<pages_links.length;i++){
+		else {
 			
-			var new_num = Number(pages_links[i].children[0].innerText); //(Number(pages_links[i].children[0].href.slice(5)) + 1);
-			pages_links[i].children[0].href = "#page_"+ (1 + new_num);
-			pages_links[i].children[0].innerText = new_num + 1;						
-			/*
-			if (pages_links[i].children.length){
-				
-				var new_num = (Number(pages_links[i].children[0].href.slice(5)) + 1);
-				pages_links[i].children[0].href = "page_"+ new_num;
-				pages_links[i].children[0].innerText = new_num;
-				
-			}
-			else pages_links[i].innerText = Number(pages_links[i].innerText) + 1;//*/
+			var stored_page = pages_links[0].cloneNode(true);
+			var future_page = pages_links[0].cloneNode(true);
+			future_page.children[0].innerText = "...";
 			
-		}//*/
-		
+			for (var i=0;i<pages_links.length;i++){
+				
+				var new_num = Number(pages_links[i].children[0].innerText); //(Number(pages_links[i].children[0].href.slice(5)) + 1);
+				pages_links[i].children[0].href = "#page_"+ (1 + new_num);
+				pages_links[i].children[0].innerText = new_num + 1;						
+				/*
+				if (pages_links[i].children.length){
+					
+					var new_num = (Number(pages_links[i].children[0].href.slice(5)) + 1);
+					pages_links[i].children[0].href = "page_"+ new_num;
+					pages_links[i].children[0].innerText = new_num;
+					
+				}
+				else pages_links[i].innerText = Number(pages_links[i].innerText) + 1;//*/
+				
+			}//*/
+			
+			pages_links[0].parentNode.insertBefore(stored_page, pages_links[0]);
+			pages_links[0].parentNode.appendChild(future_page);
+			
+		}
 		
 	}, 4000);
 	
