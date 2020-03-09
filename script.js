@@ -1,3 +1,5 @@
+
+
 window.onload = function(){
 	
 	// find all upload buttons on page ( for this sample just one )
@@ -9,7 +11,12 @@ window.onload = function(){
 }
 
 
-
+/*! Start animation for clicked element
+	
+	@param:
+		event - event or object containing `target` property specified on clicked HTML element
+		clback - optional argument for callback if the func called by user code (no event) by proxy func
+*/
 function upload_animate(event, clback){
 
 	var sender = event.target;									// the clicked button
@@ -51,15 +58,20 @@ function upload_animate(event, clback){
 	},250);//*/	
 	
 	
-	setTimeout(function(){
-		
-		content_load(dots_animate, sender);
+	setTimeout(function(){ 
+	
+		content_load(dots_animate, sender) 
 	}, 4000);
 	
 }
 
 
-
+/*! slow content loading  after animation 
+	
+	@params:
+		animat - object containing `started` - the `setInterval` index for clearInterval it inside and `elem` - container for working animation 
+		upload - clicked button that transform here to page number label
+*/
 function content_load(animat, upload){
 	
 	clearInterval(animat.started);
@@ -83,9 +95,7 @@ function content_load(animat, upload){
 		animat.elem.parentElement.removeChild(animat.elem);
 		
 		
-		
-		
-		
+	
 		
 		upload.style.display = 'block';
 		upload.style.opacity = '1';
@@ -101,17 +111,22 @@ function content_load(animat, upload){
 			_items[i].innerText = i;
 		}	
 		
-		_items[0].scrollIntoView({behavior : 'smooth'});
-		
+		if (upload.style.scrollBehavior !== void 0){
+			
+			_items[1].scrollIntoView({behavior : 'smooth', block: "end", inline: "nearest"});
+		}		
+
 	}, 1000);//*/
+	
+	
+
 		
 }
 
 
 
 
-/*!
-	Creations of animate elements
+/*! Creation of animation elements
 	
 	@params:
 		sender - clicked button
@@ -147,8 +162,7 @@ function InitializeAnimate(sender, sender_height){
 
 
 
-/*!
-	Instead directly calling the InitializeAnimate from upload_animate in case await_animate is exists
+/*! Instead directly calling the InitializeAnimate from upload_animate in case await_animate is exists
 	
 	@params:
 		sender - clicked button
@@ -170,7 +184,7 @@ function findAnimates(sender, sender_height){
 	
 	/*
 	var await_animate = null; 
-	if (await_animate = previous(sender, 'await_animate'))  return { elem : await_animate }
+	if (await_animate = findBefore(sender, 'await_animate'))  return { elem : await_animate }
 	else 
 		return InitializeAnimate(sender, sender_height)
 	//*/
@@ -179,10 +193,9 @@ function findAnimates(sender, sender_height){
 
 }
 
-/*!
-	Obsolete for findAnimates
+/*! Obsolete for findAnimates
 */
-function previous(sender, tip, attr='className', n=3){	
+function findBefore(sender, tip, attr='className', n=3){	
 	
 	for (var i=0;i<n;i++){
 		await_animate = sender.previousSibling();
