@@ -28,7 +28,7 @@ body{
   background-color: @backcolor;
   overflow:hidden;
   white-space:nowrap;
-  margin:auto;
+  margin: auto;
   margin-bottom:1em;
   
 }
@@ -70,23 +70,6 @@ h3{
 
 
 
-.i_mnu{
-  position:absolute;
-  bottom:-40px;
-  
-  border-radius:15px 0px 0 0;
-  overflow:hidden;
-  right:@iheight;
-  
-  background-color: beige;
-  transition: opacity 1s, bottom 1s ease-out;
-
-  opacity:0;
-}
-.container:hover>.i_mnu{
-  bottom:0px;
-  opacity:0.95;
-}
 
 button{
   transition:1s;
@@ -104,6 +87,27 @@ button:hover{
 
 
 
+.pages{
+	margin: 15px 0 0 0;
+	text-align:center;
+	padding-left: 0;
+	transition:1s;
+	li{
+		min-width:15px;
+		display:inline-block;
+		margin: 0px 10px;
+		background-color:lighten(orange, 10%);
+		border-radius:10px;
+		padding:5px;	
+		cursor:pointer;		
+		transition: 0.5s;
+	}
+	li:hover{
+		// text-decoration:underline;
+		background-color: orange;
+	}
+}
+
 
 
 
@@ -111,7 +115,7 @@ button:hover{
 @dots_color: lighten(blue, 20%); //#2a2aa5; //brown
 
 .await_animate{
-  margin:auto;
+  margin:1em auto;
   width:100%;
   height:2em;
   

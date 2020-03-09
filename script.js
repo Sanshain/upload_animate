@@ -1,3 +1,6 @@
+dom = document;
+dom.get = document.querySelector;
+
 
 
 window.onload = function(){
@@ -26,15 +29,25 @@ function upload_animate(event, clback){
 	// (введем по мере необходимости) tgt = sender.parentElement
 
 	sender.scrollIntoView(true);   								// scroll to down before animation	
-	sender.style.opacity = '0'; //slow hiding: unnecessary (this animate has be perform by `page_leaser`)  
+	sender.style.opacity = '0.5'; //slow hiding: unnecessary (this animate has be perform by `page_leaser`)  
+	sender.onclick = null;
 	
 	var sender_height = append_friends.offsetHeight;
 	
+	var pages = dom.get('.pages');
+	pages.style.opacity = '0';
+	
+	var more_button = sender.cloneNode(true);
+	
 	setTimeout(function(){
 		
-		sender.style.display = 'none';									// finish hide the clicked button
+		// more_button.style.display = 'none';			// finish hide the clicked button
 		
-		dots_animate = InitializeAnimate(sender, sender_height)
+		pages.style.display = 'none';					
+		
+		sender.parentNode.insertBefore(more_button, dom.get('.pages'));
+		
+		dots_animate = InitializeAnimate(more_button, sender_height);
 
 
 // animation:
@@ -60,7 +73,11 @@ function upload_animate(event, clback){
 	
 	setTimeout(function(){ 
 	
-		content_load(dots_animate, sender) 
+		more_button.style.opacity = '1';
+		more_button.onclick = upload_animate;
+		pages.style.display = 'block';
+	
+		content_load(dots_animate, sender, [pages]) 
 	}, 4000);
 	
 }
@@ -72,55 +89,60 @@ function upload_animate(event, clback){
 		animat - object containing `started` - the `setInterval` index for clearInterval it inside and `elem` - container for working animation 
 		upload - clicked button that transform here to page number label
 */
-function content_load(animat, upload){
+function content_load(animat, upload, nav_elems){
 	
+// stop animation
 	clearInterval(animat.started);
 	animat.elem.style.transition = '1s';
 	animat.elem.style.opacity = '0';
 	
 
-	var item = document.querySelector('.container');
+
+	var item = document.querySelector('.container');	
 	
+/// Create Demo Elements for new page:
+	var page = document.createElement('div');
 	var _items = [];
 	
 	for (var i=0;i<5;i++){
 		
-		_items.push(item.cloneNode(true))		
+		var item = item.cloneNode(true);
+		_items.push(item);
+		page.appendChild(item);			
+		item.innerText = i;		
 	}
+	
 	
 	
 	setTimeout(()=>{
 		
+// finish hide and remove animation
 		animat.elem.style.display = 'none';
 		animat.elem.parentElement.removeChild(animat.elem);
 		
-		
-	
-		
+// set page_number for next page instead upload button
 		upload.style.display = 'block';
 		upload.style.opacity = '1';
 		upload.style.margin = '10px auto';
+		upload.id = 'page_1';
 		upload.onclick = null;
 		upload.innerText = '1';
 		
+// insert new page after number page(before new next page) 
+		upload.parentNode.insertBefore(page, upload.nextSibling);
 		
+// 	show pages navigation panel (vs numbers of nearest pages):
+		for (var i=0;i<nav_elems.length;i++) nav_elems[i].style.opacity = '1';
 		
-		for (var i=0;i<_items.length;i++){
-			
-			item.parentNode.appendChild(_items[i]);		
-			_items[i].innerText = i;
-		}	
-		
+// smooth scroll if browser supports it:		
 		if (upload.style.scrollBehavior !== void 0){
 			
-			_items[1].scrollIntoView({behavior : 'smooth', block: "end", inline: "nearest"});
+			_items[1].scrollIntoView({behavior : 'smooth', block: "end", inline: "center"});
 		}		
 
 	}, 1000);//*/
 	
 	
-
-		
 }
 
 
