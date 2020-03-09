@@ -77,7 +77,40 @@ function upload_animate(event, clback){
 		more_button.onclick = upload_animate;
 		pages.style.display = 'block';
 	
-		content_load(dots_animate, sender, [pages]) 
+		
+	
+		var currentPage = content_load(dots_animate, sender, [pages]) 		
+		
+		
+		
+
+		// var active_lick = dom.get('.pages .active')
+		var pages_links = dom.get('.pages').children;
+		if (pages_links[0].className.indexOf('active') == 0){
+			
+			pages_links[0].className = '';
+			pages_links[0].children[0].href = '#page_'+ 2;
+			pages_links[1].className = 'active';
+			
+		}
+		else for (var i=0;i<pages_links.length;i++){
+			
+			var new_num = Number(pages_links[i].children[0].innerText); //(Number(pages_links[i].children[0].href.slice(5)) + 1);
+			pages_links[i].children[0].href = "#page_"+ (1 + new_num);
+			pages_links[i].children[0].innerText = new_num + 1;						
+			/*
+			if (pages_links[i].children.length){
+				
+				var new_num = (Number(pages_links[i].children[0].href.slice(5)) + 1);
+				pages_links[i].children[0].href = "page_"+ new_num;
+				pages_links[i].children[0].innerText = new_num;
+				
+			}
+			else pages_links[i].innerText = Number(pages_links[i].innerText) + 1;//*/
+			
+		}//*/
+		
+		
 	}, 4000);
 	
 }
@@ -111,8 +144,12 @@ function content_load(animat, upload, nav_elems){
 		page.appendChild(item);			
 		item.innerText = i;		
 	}
+	var currentPage = { previous : true, next : true }
 	
-	
+
+// get current Page: (number)	
+	var active_link = dom.get('.pages .active');
+	var pageNumber = parseInt(dom.get('.pages .active').innerText); 	
 	
 	setTimeout(()=>{
 		
@@ -120,13 +157,12 @@ function content_load(animat, upload, nav_elems){
 		animat.elem.style.display = 'none';
 		animat.elem.parentElement.removeChild(animat.elem);
 		
-// set page_number for next page instead upload button
+// set page_number for next page instead upload button		
 		upload.style.display = 'block';
 		upload.style.opacity = '1';
 		upload.style.margin = '10px auto';
-		upload.id = 'page_1';
-		upload.onclick = null;
-		upload.innerText = '1';
+		upload.id = 'page_' + pageNumber;
+		upload.innerText = pageNumber;	
 		
 // insert new page after number page(before new next page) 
 		upload.parentNode.insertBefore(page, upload.nextSibling);
@@ -138,10 +174,11 @@ function content_load(animat, upload, nav_elems){
 		if (upload.style.scrollBehavior !== void 0){
 			
 			_items[1].scrollIntoView({behavior : 'smooth', block: "end", inline: "center"});
-		}		
+		}
 
 	}, 1000);//*/
 	
+	return currentPage;
 	
 }
 

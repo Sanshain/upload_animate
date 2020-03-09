@@ -73,13 +73,35 @@ button:hover {
   display: inline-block;
   margin: 0px 10px;
   background-color: #ffb733;
-  border-radius: 10px;
-  padding: 5px;
+  border-radius: 12px;
+  padding: 0;
   cursor: pointer;
   transition: 0.5s;
+  outline: none;
+  /*&:focus{
+			transition:0s;
+			background-color:orangered;
+		}//*/
+}
+.pages li a {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+  padding: 5px 10px;
 }
 .pages li:hover {
   background-color: orange;
+  background-color: beige;
+}
+.pages .active {
+  border: 1px solid #cc8400;
+  background-color: #ffd280;
+}
+.pages .active:hover {
+  background-color: beige;
+}
+.pages li .away:hover {
+  box-shadow: 0 0 5px 2px red;
 }
 .await_animate {
   margin: 1em auto;

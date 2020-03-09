@@ -97,14 +97,37 @@ button:hover{
 		display:inline-block;
 		margin: 0px 10px;
 		background-color:lighten(orange, 10%);
-		border-radius:10px;
-		padding:5px;	
+		border-radius:12px;
+		padding:0;	
 		cursor:pointer;		
 		transition: 0.5s;
+		outline:none;
+		a{ 
+			text-decoration:none; 
+			color:inherit;
+			display:block;
+			padding:5px 10px;
+		}		
+		&:hover{
+			// text-decoration:underline;
+			background-color: orange;
+			background-color:beige;
+		}
+		/*&:focus{
+			transition:0s;
+			background-color:orangered;
+		}//*/
 	}
-	li:hover{
-		// text-decoration:underline;
-		background-color: orange;
+	.active{
+		border: 1px solid darken(orange, 10%);
+		background-color:lighten(orange, 25%);
+		&:hover{
+			background-color:beige;			
+		}
+	}
+	li
+	.away:hover{
+		box-shadow: 0 0 5px 2px red;
 	}
 }
 
