@@ -1,4 +1,13 @@
 @import url(https://fonts.googleapis.com/css?family=Tenor+Sans|PT+Serif:400,400italic,700,700italic&subset=latin,cyrillic);
+.upload {
+  text-align: center;
+  margin: auto;
+  display: block;
+  transition: 0.25s linear;
+}
+.pag {
+  text-align: center;
+}
 body {
   padding: 15px;
 }
