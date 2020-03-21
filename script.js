@@ -8,9 +8,19 @@ dom.get = document.querySelector;
 
 //- using call_error
 call_error = {
-	connection : function(){
+	connection : function(sender){
 		
-		alert('Error connection. If you want refresh page, click here or turn around');
+		var erLogger = document.createElement('div');
+		erLogger.className = "upload_error";
+		erLogger.innerText = "Не удалось получить данные с сервера";
+
+		if (sender.nextSibling){
+
+			sender.parentNode.insertBefore(erLogger, sender.nextSibling);
+		}
+		else sender.parentNode.appendChild(erLogger);
+
+		// alert('Error connection. If you want refresh page, click here or turn around');
 		
 		return false;
 	}
@@ -63,7 +73,11 @@ uploadAnimation.prototype = {
 	startTimeOut : 1500,
 	timeOut : 1000,
 	attemptLot : 5,
-	finishScroll : 3
+	finishScroll : 3,
+	styleClass : {
+		container : 'await_animate',
+		content : 'circle'
+	}
 }
 function uploadAnimation(event, clback) {
 	
@@ -77,15 +91,42 @@ function uploadAnimation(event, clback) {
 	var self = this;
 	this.responseData = null;
 	
+	
+	/*! Creation of animation elements
+		Создает элементы анимации и назначает им классы анимации
+		
+		@params:
+			sender - clicked button
+			sender_height - height for animate container (arrived separated, because height of sender for unvisible style is null)
+	*/
+	this._InitialAnimation = function(sender, sender_height){
+
+		var await_animate = document.createElement('div');		/* создает контейнер для анимации */
+		
+		await_animate.className = 'await_animate';
+		await_animate.style.height = sender_height + 'px';
+		for (var i=0;i<3;i++){									/* создает субъекты анимации */
+			var dot = document.createElement('div');
+			dot.className = 'circle';
+			await_animate.appendChild(dot);
+		}
+		sender.parentElement.insertBefore(await_animate, sender);  /* set animate container to page */
+		
+		setTimeout(function(){ await_animate.style.opacity = '1' }, 10); /* slow appearance the container */
+		
+		return { elem : await_animate };
+	}	
+	
+	
 	/*! Start animation for clicked element
 		
 		@param:
 			event - event or object containing `target` property specified on clicked HTML element
 			clback - optional argument for callback if the func called by user code (no event) by proxy func
 	*/
-	this.upload_animate = function(event, clback){
+	this.uploadAnimate = function(event, clback){
 
-		this.sender = event.target;									// the clicked button
+		this.sender = event.target;									// the clicked button		
 
 		// var tgt = sender.dataset['_refresh']; 			//       sender.dataset['append_to'] ||
 		// tgt - нужен будет, если будет надо вставить не перед кнопкой, а в др месте 
@@ -102,47 +143,34 @@ function uploadAnimation(event, clback) {
 		
 		var bottomMoreButton = this.sender.cloneNode(true);
 		
-		setTimeout(function(){
+		setTimeout(function(){									// setTimeout for 
 			
-			// bottomMoreButton.style.display = 'none';			// finish hide the clicked button
+
 			
-			pages_panel.style.display = 'none';					
-			
-			this.sender.parentNode.insertBefore(bottomMoreButton, dom.get('.pages'));
-			
-			this.animation = InitializeAnimate(bottomMoreButton, sender_height);
-
-
-	// animation:
-
-			var key = 0;
-
-			elems = this.animation.elem.querySelectorAll('.circle');
-
-			this.animation['started'] = setInterval(function(){
-
-				var pre = key > 0 ? key - 1  : 2;
-				elems[key].className = 'circle active';
-				elems[pre].className = 'circle';
-
-				if (key<2) {key+=1} else key=0;
-			  
-			},500);   
-
-			if (clback) clback(this.animation);
+			this._StartAnimation(pages_panel, bottomMoreButton, sender_height, clback);
 			
 		},250);//*/	
 		
 		var attempts = 0;
 		setTimeout(function wait_contant(){ 
 		
-			if (!data && attempts<self.attemptLot){
-				
-				attempts = setTimeout(wait_contant, self.timeOut);
+			var backUpValue = self.sender.innerText;
+			if (!data && attempts++ < self.attemptLot){
+
+				self.sender.innerText = "Попытка № " + attempts;
+				setTimeout(wait_contant, self.timeOut);
+
 				return;
 			}
-			else if(!data && attempts>=self.attemptLot) return call_error['connection']();
+			else if(!data && attempts>=self.attemptLot) {
+						
+				self.sender.innerText = "Попробовать еще";	
+				
+				HideAnimation();
+				return call_error['connection'](self.sender);
+			}
 			
+			this.sender.innerText = backUpValue;			
 		
 			// if data is received
 			
@@ -205,10 +233,8 @@ function uploadAnimation(event, clback) {
 	
 		var upload = self.sender;  // upload - clicked button that transform here to page number label
 	
-	// stop animation
-		clearInterval(self.animation.start);
-		self.animation.elem.style.transition = '1s';
-		self.animation.elem.style.opacity = '0';
+	
+		HideAnimation();
 		
 
 
@@ -256,8 +282,53 @@ function uploadAnimation(event, clback) {
 		
 	}
 
-	this.upload_animate(event, clback);
 
+
+
+
+
+
+	this.uploadAnimate(event, clback);
+
+	function _StartAnimation(pages_panel, bottomMoreButton, sender_height, clback) {
+
+		// bottomMoreButton.style.display = 'none';			// finish hide the clicked button
+
+		pages_panel.style.display = 'none'; // hide page panel
+
+		self.sender.parentNode.insertBefore(bottomMoreButton, pages_panel); // insert the MoreButton before pages_panel
+
+		self.animation = self._InitialAnimation(bottomMoreButton, sender_height);
+
+		// animation:
+		var key = 0;
+
+		elems = self.animation.elem.querySelectorAll('.circle');
+
+		self.animation['started'] = setInterval(function () {
+
+			var pre = key > 0 ? key - 1 : 2;
+			elems[key].className = 'circle active';
+			elems[pre].className = 'circle';
+
+			if (key < 2) 
+				key += 1;
+			else 
+				key = 0;
+
+		}, 500);
+		
+		if (clback) clback(self.animation);
+	}
+
+	/*! Hiding animation
+	*/
+	function HideAnimation() {
+		
+		clearInterval(self.animation.start);
+		self.animation.elem.style.transition = '1s';
+		self.animation.elem.style.opacity = '0';
+	}
 };
 
 
@@ -444,6 +515,7 @@ function content_load(animat, upload, nav_elems){
 
 
 /*! Creation of animation elements
+	Создает элементы анимации и назначает им классы анимации
 	
 	@params:
 		sender - clicked button
