@@ -1,6 +1,20 @@
 dom = document;
 dom.get = document.querySelector;
 
+// import on base
+
+// assign here that its using:
+// using call_error
+
+//- using call_error
+call_error = {
+	connection : function(){
+		
+		alert('Error connection. If you want refresh page, click here or turn around');
+		
+		return false;
+	}
+}
 
 
 window.onload = function(){
@@ -9,20 +23,59 @@ window.onload = function(){
 	var upload_buttons = document.querySelectorAll('.upload'); // or by [data-append_to]
 	
 	// set onclick event the func of upload_animate
-	for (var i=0;i<upload_buttons.length;i++) upload_buttons[i].onclick = upload_animate;
+	for (var i=0;i<upload_buttons.length;i++) upload_buttons[i].onclick = uploadAnimation;
 	
 }
 
+// test:
+var data = null;
 
+/*! Function for generate demo fields (with demo data). 
+
+	imitation for real page request by AJAX
+*/
+function getPage(){
+	
+	setTimeout(function(){
+		
+		/// Create Demo Elements for new page:
+		var page = document.createElement('div');
+		var _items = [];
+		
+		for (var i=0;i<5;i++){
+			
+			var item = item.cloneNode(true);
+			_items.push(item);
+			page.appendChild(item);			
+			item.innerText = i;
+		}
+		
+		data = page;	
+		
+	}, 4000);	
+}
+
+
+
+
+
+uploadAnimation.prototype = {
+	startTimeOut : 1500,
+	timeOut : 1000,
+	attemptLot : 5,
+	finishScroll : 3
+}
 function uploadAnimation(event, clback) {
 	
-	if (this instanceof window) {
+	if (!(this instanceof uploadAnimation)) {
 		
-		new uploadAnimation(event, clback);
+		var _animation = new uploadAnimation(event, clback);
+		
 		return;
 	}
 	
-	
+	var self = this;
+	this.responseData = null;
 	
 	/*! Start animation for clicked element
 		
@@ -32,41 +85,41 @@ function uploadAnimation(event, clback) {
 	*/
 	this.upload_animate = function(event, clback){
 
-		var sender = event.target;									// the clicked button
+		this.sender = event.target;									// the clicked button
 
 		// var tgt = sender.dataset['_refresh']; 			//       sender.dataset['append_to'] ||
 		// tgt - нужен будет, если будет надо вставить не перед кнопкой, а в др месте 
 		// (введем по мере необходимости) tgt = sender.parentElement
 
-		sender.scrollIntoView(true);   								// scroll to down before animation	
-		sender.style.opacity = '0.5'; //slow hiding: unnecessary (this animate has be perform by `page_leaser`)  
-		sender.onclick = null;
+		this.sender.scrollIntoView(true);   		// scroll to full bottom view before animation	
+		this.sender.style.opacity = '0.5'; //slow hiding: unnecessary (this animate has be perform by `page_leaser`)  
+		this.sender.onclick = null;
 		
 		var sender_height = append_friends.offsetHeight;
 		
-		var pages = dom.get('.pages');
-		pages.style.opacity = '0';
+		var pages_panel = dom.get('.pages');									
+		pages_panel.style.opacity = '0';
 		
-		var more_button = sender.cloneNode(true);
+		var bottomMoreButton = this.sender.cloneNode(true);
 		
 		setTimeout(function(){
 			
-			// more_button.style.display = 'none';			// finish hide the clicked button
+			// bottomMoreButton.style.display = 'none';			// finish hide the clicked button
 			
-			pages.style.display = 'none';					
+			pages_panel.style.display = 'none';					
 			
-			sender.parentNode.insertBefore(more_button, dom.get('.pages'));
+			this.sender.parentNode.insertBefore(bottomMoreButton, dom.get('.pages'));
 			
-			dots_animate = InitializeAnimate(more_button, sender_height);
+			this.animation = InitializeAnimate(bottomMoreButton, sender_height);
 
 
 	// animation:
 
 			var key = 0;
 
-			elems = dots_animate.elem.querySelectorAll('.circle');
+			elems = this.animation.elem.querySelectorAll('.circle');
 
-			dots_animate['started'] = setInterval(function(){
+			this.animation['started'] = setInterval(function(){
 
 				var pre = key > 0 ? key - 1  : 2;
 				elems[key].className = 'circle active';
@@ -76,24 +129,31 @@ function uploadAnimation(event, clback) {
 			  
 			},500);   
 
-			if (clback) clback(dots_animate);
+			if (clback) clback(this.animation);
 			
 		},250);//*/	
 		
+		var attempts = 0;
+		setTimeout(function wait_contant(){ 
 		
-		setTimeout(function(){ 
-		
-			more_button.style.opacity = '1';
-			more_button.onclick = upload_animate;
-			pages.style.display = 'block';
-		
+			if (!data && attempts<self.attemptLot){
+				
+				attempts = setTimeout(wait_contant, self.timeOut);
+				return;
+			}
+			else if(!data && attempts>=self.attemptLot) return call_error['connection']();
 			
 		
-			var currentPage = content_load(dots_animate, sender, [pages]) 		
+			// if data is received
 			
 			
+			bottomMoreButton.style.opacity = '1';
+			bottomMoreButton.onclick = upload_animate;
+			pages_panel.style.display = 'block';
 			
-
+			var currentPage = content_load(data, [pages_panel])
+			
+			
 			// var active_lick = dom.get('.pages .active')
 			var pages_links = dom.get('.pages').children;
 			if (pages_links[0].className.indexOf('active') == 0){
@@ -139,31 +199,21 @@ function uploadAnimation(event, clback) {
 		плавная подгрузка контента после анимации
 		
 		@params:
-			animat - object containing `started` - the `setInterval` index for clearInterval it inside and `elem` - container for working animation 
 			upload - clicked button that transform here to page number label
 	*/
-	var content_load = function(animat, upload, nav_elems){
+	var content_load = function(nav_elems){
+	
+		var upload = self.sender;  // upload - clicked button that transform here to page number label
 	
 	// stop animation
-		clearInterval(animat.started);
-		animat.elem.style.transition = '1s';
-		animat.elem.style.opacity = '0';
+		clearInterval(self.animation.start);
+		self.animation.elem.style.transition = '1s';
+		self.animation.elem.style.opacity = '0';
 		
 
 
 		var item = document.querySelector('.container');	
 		
-	/// Create Demo Elements for new page:
-		var page = document.createElement('div');
-		var _items = [];
-		
-		for (var i=0;i<5;i++){
-			
-			var item = item.cloneNode(true);
-			_items.push(item);
-			page.appendChild(item);			
-			item.innerText = i;
-		}
 		var currentPage = { previous : true, next : true }
 		
 
@@ -174,8 +224,8 @@ function uploadAnimation(event, clback) {
 		setTimeout(()=>{
 			
 	// finish hide and remove animation
-			animat.elem.style.display = 'none';
-			animat.elem.parentElement.removeChild(animat.elem);
+			self.animation.elem.style.display = 'none';
+			self.animation.elem.parentElement.removeChild(self.animation.elem);
 			
 	// set page_number for next page instead upload button		
 			upload.style.display = 'block';
@@ -193,7 +243,11 @@ function uploadAnimation(event, clback) {
 	// smooth scroll if browser supports it:		
 			if (upload.style.scrollBehavior !== void 0){
 				
-				_items[3].scrollIntoView({behavior : 'smooth', block: "end", inline: "center"});
+				data[self.finishScroll].scrollIntoView({
+					behavior : 'smooth', 
+					block: "end", 
+					inline: "center"
+				});
 			}
 
 		}, 1000);//*/
@@ -201,6 +255,8 @@ function uploadAnimation(event, clback) {
 		return currentPage;
 		
 	}
+
+	this.upload_animate(event, clback);
 
 };
 
@@ -238,17 +294,17 @@ function upload_animate(event, clback){
 	var pages = dom.get('.pages');
 	pages.style.opacity = '0';
 	
-	var more_button = sender.cloneNode(true);
+	var bottomMoreButton = sender.cloneNode(true);
 	
 	setTimeout(function(){
 		
-		// more_button.style.display = 'none';			// finish hide the clicked button
+		// bottomMoreButton.style.display = 'none';			// finish hide the clicked button
 		
 		pages.style.display = 'none';					
 		
-		sender.parentNode.insertBefore(more_button, dom.get('.pages'));
+		sender.parentNode.insertBefore(bottomMoreButton, dom.get('.pages'));
 		
-		dots_animate = InitializeAnimate(more_button, sender_height);
+		dots_animate = InitializeAnimate(bottomMoreButton, sender_height);
 
 
 // animation:
@@ -274,8 +330,8 @@ function upload_animate(event, clback){
 	
 	setTimeout(function(){ 
 	
-		more_button.style.opacity = '1';
-		more_button.onclick = upload_animate;
+		bottomMoreButton.style.opacity = '1';
+		bottomMoreButton.onclick = upload_animate;
 		pages.style.display = 'block';
 	
 		
@@ -341,48 +397,33 @@ function upload_animate(event, clback){
 */
 function content_load(animat, upload, nav_elems){
 	
-// stop animation
-	clearInterval(animat.started);
+
+	clearInterval(animat.started);									// stop animation
 	animat.elem.style.transition = '1s';
 	animat.elem.style.opacity = '0';
 	
-
-
-	var item = document.querySelector('.container');	
 	
-/// Create Demo Elements for new page:
-	var page = document.createElement('div');
-	var _items = [];
+	var currentPage = { previous : true, next : true }				// create page environment
 	
-	for (var i=0;i<5;i++){
-		
-		var item = item.cloneNode(true);
-		_items.push(item);
-		page.appendChild(item);			
-		item.innerText = i;
-	}
-	var currentPage = { previous : true, next : true }
 	
-
-// get current Page: (number)	
-	var active_link = dom.get('.pages .active');
+	var active_link = dom.get('.pages .active');					// get current Page: (number)	
 	var pageNumber = parseInt(dom.get('.pages .active').innerText); 	
+	
 	
 	setTimeout(()=>{
 		
-// finish hide and remove animation
-		animat.elem.style.display = 'none';
+		animat.elem.style.display = 'none';						// finish hiding and removing animation
 		animat.elem.parentElement.removeChild(animat.elem);
 		
-// set page_number for next page instead upload button		
-		upload.style.display = 'block';
+
+		upload.style.display = 'block';				// set page_number for next page instead upload button
 		upload.style.opacity = '1';
 		upload.style.margin = '10px auto';
 		upload.id = 'page_' + pageNumber;
 		upload.innerText = pageNumber;	
 		
 // insert new page after number page(before new next page) 
-		upload.parentNode.insertBefore(page, upload.nextSibling);
+		upload.parentNode.insertBefore(data, upload.nextSibling);
 		
 // 	show pages navigation panel (vs numbers of nearest pages):
 		for (var i=0;i<nav_elems.length;i++) nav_elems[i].style.opacity = '1';
@@ -390,7 +431,7 @@ function content_load(animat, upload, nav_elems){
 // smooth scroll if browser supports it:		
 		if (upload.style.scrollBehavior !== void 0){
 			
-			_items[3].scrollIntoView({behavior : 'smooth', block: "end", inline: "center"});
+			data.children[3].scrollIntoView({behavior : 'smooth', block: "end", inline: "center"});
 		}
 
 	}, 1000);//*/
