@@ -146,7 +146,7 @@ function uploadAnimation(event, clback) {
 		setTimeout(function(){									// setTimeout for 
 
 			
-			this._StartAnimation(pages_panel, bottomMoreButton, sender_height, clback);
+			self._StartAnimation(pages_panel, bottomMoreButton, sender_height, clback);
 			
 		},250);//*/	
 		
@@ -250,7 +250,7 @@ function uploadAnimation(event, clback) {
 		bottomMoreButton.onclick = upload_animate;
 		pages_panel.style.display = 'block';
 
-		
+
 		var currentPage = content_load(data, [pages_panel]);
 		// var active_lick = dom.get('.pages .active')
 		var pages_links = dom.get('.pages').children;
@@ -282,7 +282,7 @@ function uploadAnimation(event, clback) {
 		}
 	}
 
-	function _StartAnimation(pages_panel, bottomMoreButton, sender_height, clback) {
+	this._StartAnimation = function(pages_panel, bottomMoreButton, sender_height, clback) {
 
 		// bottomMoreButton.style.display = 'none';			// finish hide the clicked button
 
