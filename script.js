@@ -144,7 +144,6 @@ function uploadAnimation(event, clback) {
 		var bottomMoreButton = this.sender.cloneNode(true);
 		
 		setTimeout(function(){									// setTimeout for 
-			
 
 			
 			this._StartAnimation(pages_panel, bottomMoreButton, sender_height, clback);
@@ -172,52 +171,7 @@ function uploadAnimation(event, clback) {
 			
 			this.sender.innerText = backUpValue;			
 		
-			// if data is received
-			
-			
-			bottomMoreButton.style.opacity = '1';
-			bottomMoreButton.onclick = upload_animate;
-			pages_panel.style.display = 'block';
-			
-			var currentPage = content_load(data, [pages_panel])
-			
-			
-			// var active_lick = dom.get('.pages .active')
-			var pages_links = dom.get('.pages').children;
-			if (pages_links[0].className.indexOf('active') == 0){
-				
-				pages_links[0].className = '';
-				pages_links[0].children[0].href = '#page_'+ 1;
-				pages_links[1].className = 'active';
-				
-			}
-			else {
-				
-				var stored_page = pages_links[0].cloneNode(true);
-				var future_page = pages_links[0].cloneNode(true);
-				future_page.children[0].innerText = "...";
-				
-				for (var i=0;i<pages_links.length;i++){
-					
-					var new_num = Number(pages_links[i].children[0].innerText); //(Number(pages_links[i].children[0].href.slice(5)) + 1);
-					pages_links[i].children[0].href = "#page_"+ (1 + new_num);
-					pages_links[i].children[0].innerText = new_num + 1;						
-					/*
-					if (pages_links[i].children.length){
-						
-						var new_num = (Number(pages_links[i].children[0].href.slice(5)) + 1);
-						pages_links[i].children[0].href = "page_"+ new_num;
-						pages_links[i].children[0].innerText = new_num;
-						
-					}
-					else pages_links[i].innerText = Number(pages_links[i].innerText) + 1;//*/
-					
-				}//*/
-				
-				pages_links[0].parentNode.insertBefore(stored_page, pages_links[0]);
-				pages_links[0].parentNode.appendChild(future_page);
-				
-			}
+			waitContent(bottomMoreButton, pages_panel);   				// if data is received
 			
 		}, 4000);
 		
@@ -290,6 +244,44 @@ function uploadAnimation(event, clback) {
 
 	this.uploadAnimate(event, clback);
 
+	function waitContent(bottomMoreButton, pages_panel) {
+
+		bottomMoreButton.style.opacity = '1';
+		bottomMoreButton.onclick = upload_animate;
+		pages_panel.style.display = 'block';
+
+		
+		var currentPage = content_load(data, [pages_panel]);
+		// var active_lick = dom.get('.pages .active')
+		var pages_links = dom.get('.pages').children;
+		if (pages_links[0].className.indexOf('active') == 0) {
+			pages_links[0].className = '';
+			pages_links[0].children[0].href = '#page_' + 1;
+			pages_links[1].className = 'active';
+		}
+		else {
+			var stored_page = pages_links[0].cloneNode(true);
+			var future_page = pages_links[0].cloneNode(true);
+			future_page.children[0].innerText = "...";
+			for (var i = 0; i < pages_links.length; i++) {
+				var new_num = Number(pages_links[i].children[0].innerText); //(Number(pages_links[i].children[0].href.slice(5)) + 1);
+				pages_links[i].children[0].href = "#page_" + (1 + new_num);
+				pages_links[i].children[0].innerText = new_num + 1;
+				/*
+				if (pages_links[i].children.length){
+				    
+					var new_num = (Number(pages_links[i].children[0].href.slice(5)) + 1);
+					pages_links[i].children[0].href = "page_"+ new_num;
+					pages_links[i].children[0].innerText = new_num;
+				    
+				}
+				else pages_links[i].innerText = Number(pages_links[i].innerText) + 1;//*/
+			} //*/
+			pages_links[0].parentNode.insertBefore(stored_page, pages_links[0]);
+			pages_links[0].parentNode.appendChild(future_page);
+		}
+	}
+
 	function _StartAnimation(pages_panel, bottomMoreButton, sender_height, clback) {
 
 		// bottomMoreButton.style.display = 'none';			// finish hide the clicked button
@@ -324,7 +316,7 @@ function uploadAnimation(event, clback) {
 	/*! Hiding animation
 	*/
 	function HideAnimation() {
-		
+
 		clearInterval(self.animation.start);
 		self.animation.elem.style.transition = '1s';
 		self.animation.elem.style.opacity = '0';
