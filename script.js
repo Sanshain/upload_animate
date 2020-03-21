@@ -132,23 +132,23 @@ function uploadAnimation(event, clback) {
 		// tgt - нужен будет, если будет надо вставить не перед кнопкой, а в др месте 
 		// (введем по мере необходимости) tgt = sender.parentElement
 
-		this.sender.scrollIntoView(true);   		// scroll to full bottom view before animation	
-		this.sender.style.opacity = '0.5'; //slow hiding: unnecessary (this animate has be perform by `page_leaser`)  
-		this.sender.onclick = null;
+		this.sender.scrollIntoView(true);   				// scroll to full bottom view before animation	
+		this.sender.style.opacity = '0.5'; 					// slow hiding: unnecessary (this animate has be perform by `page_leaser`)  
+		this.sender.onclick = null;							// disable onclick
 		
-		var sender_height = append_friends.offsetHeight;
+		var sender_height = append_friends.offsetHeight;	// sender_height for to set block height in _InitialAnimation
 		
-		var pages_panel = dom.get('.pages');									
-		pages_panel.style.opacity = '0';
+		var pages_panel = dom.get('.pages');				// get page_panel								
+		pages_panel.style.opacity = '0';					// slow hide
 		
-		var bottomMoreButton = this.sender.cloneNode(true);
+		var bottomMoreButton = this.sender.cloneNode(true); // 
 		
-		setTimeout(function(){									// setTimeout for 
-
+		setTimeout(function(){
 			
+
 			self._StartAnimation(pages_panel, bottomMoreButton, sender_height, clback);
 			
-		},250);//*/	
+		},250);
 		
 		var attempts = 0;
 		setTimeout(function wait_contant(){ 
@@ -246,6 +246,9 @@ function uploadAnimation(event, clback) {
 
 	function waitContent(bottomMoreButton, pages_panel) {
 
+		// show bottomMoreButton
+		bottomMoreButton.style.display = 'block';
+
 		bottomMoreButton.style.opacity = '1';
 		bottomMoreButton.onclick = upload_animate;
 		pages_panel.style.display = 'block';
@@ -282,11 +285,16 @@ function uploadAnimation(event, clback) {
 		}
 	}
 
+	/*! hide and insert new MoreButton and then _InitialAnimation() and start animation in 
+		place before bottomMoreButton
+	*/
 	this._StartAnimation = function(pages_panel, bottomMoreButton, sender_height, clback) {
 
 		// bottomMoreButton.style.display = 'none';			// finish hide the clicked button
 
-		pages_panel.style.display = 'none'; // hide page panel
+		pages_panel.style.display = 'none'; 				// hide page panel
+
+		bottomMoreButton.style.display = 'none';			// hide new MoreButton
 
 		self.sender.parentNode.insertBefore(bottomMoreButton, pages_panel); // insert the MoreButton before pages_panel
 
@@ -352,7 +360,7 @@ function upload_animate(event, clback){
 	sender.style.opacity = '0.5'; //slow hiding: unnecessary (this animate has be perform by `page_leaser`)  
 	sender.onclick = null;
 	
-	var sender_height = append_friends.offsetHeight;
+	var sender_height = append_friends.offsetHeight;			
 	
 	var pages = dom.get('.pages');
 	pages.style.opacity = '0';
