@@ -50,12 +50,11 @@ function getPage(){
 		
 		/// Create Demo Elements for new page:
 		var page = document.createElement('div');
-		var _items = [];
+		var _sec_items = dom.querySelectorAll('.container');
 		
 		for (var i=0;i<5;i++){
 			
-			var item = item.cloneNode(true);
-			_items.push(item);
+			var item = _sec_items[i].cloneNode(true);			
 			page.appendChild(item);			
 			item.innerText = i;
 		}
@@ -65,12 +64,12 @@ function getPage(){
 	}, 4000);	
 }
 
-
+getPage();
 
 
 
 uploadAnimation.prototype = {
-	startTimeOut : 1500,
+	startTimeOut : 4000,
 	timeOut : 1000,
 	attemptLot : 5,
 	finishScroll : 3,
@@ -89,37 +88,14 @@ function uploadAnimation(event, clback) {
 	}
 	
 	var self = this;
-	this.responseData = null;
+	this.responseData = null;									// ?
 	
 	
-	/*! Creation of animation elements
-		Создает элементы анимации и назначает им классы анимации
-		
-		@params:
-			sender - clicked button
-			sender_height - height for animate container (arrived separated, because height of sender for unvisible style is null)
-	*/
-	this._InitialAnimation = function(sender, sender_height){
 
-		var await_animate = document.createElement('div');		/* создает контейнер для анимации */
-		
-		await_animate.className = 'await_animate';
-		await_animate.style.height = sender_height + 'px';
-		for (var i=0;i<3;i++){									/* создает субъекты анимации */
-			var dot = document.createElement('div');
-			dot.className = 'circle';
-			await_animate.appendChild(dot);
-		}
-		sender.parentElement.insertBefore(await_animate, sender);  /* set animate container to page */
-		
-		setTimeout(function(){ await_animate.style.opacity = '1' }, 10); /* slow appearance the container */
-		
-		return { elem : await_animate };
-	}	
-	
 	
 	/*! Start animation for clicked element
-		
+		Главный метод: он запускает анимацию и 	
+
 		@param:
 			event - event or object containing `target` property specified on clicked HTML element
 			clback - optional argument for callback if the func called by user code (no event) by proxy func
@@ -141,7 +117,7 @@ function uploadAnimation(event, clback) {
 		var pages_panel = dom.get('.pages');				// get page_panel								
 		pages_panel.style.opacity = '0';					// slow hide
 		
-		var bottomMoreButton = this.sender.cloneNode(true); // 
+		var bottomMoreButton = this.sender.cloneNode(true); // new `MoreButton` for appearance after animation
 		
 		setTimeout(function(){
 			
@@ -151,111 +127,62 @@ function uploadAnimation(event, clback) {
 		},250);
 		
 		var attempts = 0;
+		
+
 		setTimeout(function wait_contant(){ 
 		
-			var backUpValue = self.sender.innerText;
+			var backUpValue = self.sender.innerText;			
+			
 			if (!data && attempts++ < self.attemptLot){
 
 				self.sender.innerText = "Попытка № " + attempts;
-				setTimeout(wait_contant, self.timeOut);
+				setTimeout(wait_contant, self.timeOut);					// recursive wait_contant
 
 				return;
 			}
 			else if(!data && attempts>=self.attemptLot) {
 						
-				self.sender.innerText = "Попробовать еще";	
-				
-				HideAnimation();
-				return call_error['connection'](self.sender);
+				self.sender.innerText = "Попробовать еще";					
+				_HideAnimation();
+
+				return call_error['connection'](self.sender);			// error on no-data
 			}
+			else {
+
+				self.sender.innerText = backUpValue;		
+				contentReceived(bottomMoreButton, pages_panel);  		// if data is received
+			}
+
 			
-			this.sender.innerText = backUpValue;			
-		
-			waitContent(bottomMoreButton, pages_panel);   				// if data is received
-			
-		}, 4000);
-		
+		}, self.startTimeOut);
+
 	}	
 
-	/*! slow content loading  after animation (called inside upload_animate)
-		плавная подгрузка контента после анимации
-		
-		@params:
-			upload - clicked button that transform here to page number label
+
+
+	/*!
+		- Резко и финнишно показывает bottomMoreButton
+		- Резко и финнишно показывает панель страниц
+		- (Загружает data из content_load()):
+			- плавно скрывает анимацию 
+			- Удаляет анимацию (в новом фрейме)
+			- Назначает номер страницы для существующего контента (в новом фрейме)		
+
+		- меняет содержимое панели страниц
 	*/
-	var content_load = function(nav_elems){
-	
-		var upload = self.sender;  // upload - clicked button that transform here to page number label
-	
-	
-		HideAnimation();
-		
-
-
-		var item = document.querySelector('.container');	
-		
-		var currentPage = { previous : true, next : true }
-		
-
-	// get current Page: (number)	
-		var active_link = dom.get('.pages .active');
-		var pageNumber = parseInt(dom.get('.pages .active').innerText); 	
-		
-		setTimeout(()=>{
-			
-	// finish hide and remove animation
-			self.animation.elem.style.display = 'none';
-			self.animation.elem.parentElement.removeChild(self.animation.elem);
-			
-	// set page_number for next page instead upload button		
-			upload.style.display = 'block';
-			upload.style.opacity = '1';
-			upload.style.margin = '10px auto';
-			upload.id = 'page_' + pageNumber;
-			upload.innerText = pageNumber;	
-			
-	// insert new page after number page(before new next page) 
-			upload.parentNode.insertBefore(page, upload.nextSibling);
-			
-	// 	show pages navigation panel (vs numbers of nearest pages):
-			for (var i=0;i<nav_elems.length;i++) nav_elems[i].style.opacity = '1';
-			
-	// smooth scroll if browser supports it:		
-			if (upload.style.scrollBehavior !== void 0){
-				
-				data[self.finishScroll].scrollIntoView({
-					behavior : 'smooth', 
-					block: "end", 
-					inline: "center"
-				});
-			}
-
-		}, 1000);//*/
-		
-		return currentPage;
-		
-	}
-
-
-
-
-
-
-
-	this.uploadAnimate(event, clback);
-
-	function waitContent(bottomMoreButton, pages_panel) {
+	function contentReceived(bottomMoreButton, pages_panel) {
 
 		// show bottomMoreButton
 		bottomMoreButton.style.display = 'block';
-
 		bottomMoreButton.style.opacity = '1';
 		bottomMoreButton.onclick = upload_animate;
+		// show pages_panel
 		pages_panel.style.display = 'block';
 
 
-		var currentPage = content_load(data, [pages_panel]);
+		var currentPage = contentUpload(data, [pages_panel]);
 		// var active_lick = dom.get('.pages .active')
+
 		var pages_links = dom.get('.pages').children;
 		if (pages_links[0].className.indexOf('active') == 0) {
 			pages_links[0].className = '';
@@ -285,8 +212,106 @@ function uploadAnimation(event, clback) {
 		}
 	}
 
-	/*! hide and insert new MoreButton and then _InitialAnimation() and start animation in 
+
+
+
+	/*! slow content loading  after animation (called inside upload_animate)
+		плавная подгрузка контента после анимации:
+			- плавно скрывает анимацию 
+			- Удаляет анимацию (в новом фрейме)
+			- Назначает номер страницы для существующего контента (в новом фрейме)
+
+		
+		@params:
+			upload - clicked button that transform here to page number label
+	*/
+	var contentUpload = function(nav_elems){
+	
+		var uploadBtn = self.sender;  // uploadBtn - clicked button that transform here to page number label
+		var item = document.querySelector('.container');	//?
+	
+		_HideAnimation();
+
+		var currentPage = { previous : true, next : true }
+		
+
+	// get current Page: (number)	
+		var active_link = dom.get('.pages .active');		//?
+		var pageNumber = parseInt(dom.get('.pages .active').innerText); 	
+		
+		setTimeout(()=>{
+				
+			_RemoveAnimation();
+			
+	// set page_number for next page instead upload button		
+			uploadBtn.style.display = 'block';
+			uploadBtn.style.opacity = '1';
+			uploadBtn.style.margin = '10px auto';
+			uploadBtn.id = 'page_' + pageNumber;
+			uploadBtn.innerText = pageNumber;	
+			
+	// insert new page after number page(before new next page) 
+			uploadBtn.parentNode.insertBefore(data, uploadBtn.nextSibling);
+			
+	// 	show pages navigation panel (vs numbers of nearest pages):
+			for (var i=0;i<nav_elems.length;i++) nav_elems[i].style.opacity = '1';
+			
+	// smooth scroll if browser supports it:		
+			if (uploadBtn.style.scrollBehavior !== void 0){
+				
+				data[self.finishScroll].scrollIntoView({
+					behavior : 'smooth', 
+					block: "end", 
+					inline: "center"
+				});
+			}
+
+		}, 1000);//*/
+		
+		return currentPage;
+		
+	}
+
+
+
+	this.uploadAnimate(event, clback);
+
+
+	/*! Creation of animation elements
+		Создает элементы анимации, назначает им классы стилей и возвращает их контейнер как объект
+		
+		@params:
+			sender - clicked button
+			sender_height - height for animate container (arrived separated, because height of sender for unvisible style is null)
+	*/
+	this._InitialAnimation = function(sender, sender_height)
+	{
+
+		var await_animate = document.createElement('div');		/* создает контейнер для анимации */
+		
+		await_animate.className = 'await_animate';
+		await_animate.style.height = sender_height + 'px';
+		for (var i=0;i<3;i++){									/* создает субъекты анимации */
+			var dot = document.createElement('div');
+			dot.className = 'circle';
+			await_animate.appendChild(dot);
+		}
+		sender.parentElement.insertBefore(await_animate, sender);  /* set animate container to page */
+		
+		setTimeout(function(){ await_animate.style.opacity = '1' }, 10); /* slow appearance the container */
+		
+		return { elem : await_animate };
+	}	
+	
+
+
+
+	/*! hide and insert new MoreButton and than _InitialAnimation() and start animation in 
 		place before bottomMoreButton
+
+		Скрывает кнопку "Показать еще", инициализирует объекты анимации и запускает setInterval для их анимации
+		(Заполняет объект self.animation данными об инициализированном объекте анимации и статусе анимации - 
+			индексе setInterval)
 	*/
 	this._StartAnimation = function(pages_panel, bottomMoreButton, sender_height, clback) {
 
@@ -323,12 +348,21 @@ function uploadAnimation(event, clback) {
 
 	/*! Hiding animation
 	*/
-	function HideAnimation() {
+	function _HideAnimation() {
 
 		clearInterval(self.animation.start);
 		self.animation.elem.style.transition = '1s';
 		self.animation.elem.style.opacity = '0';
 	}
+
+
+
+	/// finish hide and remove animation
+	function _RemoveAnimation() {
+		self.animation.elem.style.display = 'none';
+		self.animation.elem.parentElement.removeChild(self.animation.elem);
+	}
+
 };
 
 
