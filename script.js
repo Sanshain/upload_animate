@@ -39,17 +39,19 @@ window.onload = function(){
 
 // test:
 // var data = null;
+var page_index = 0;
 
 /*! Function for generate demo fields (with demo data). 
 
 	imitation for real page request by AJAX
 */
-function ___getPage(){
+function ___getPage(uploader){
 	
 	setTimeout(function(){
 		
 		/// Create Demo Elements for new page:
 		var page = document.createElement('div');
+		page.id = "page_container_" + ++page_index;
 		var _sec_items = dom.querySelectorAll('.container');
 		
 		for (var i=0;i<5;i++){
@@ -59,12 +61,12 @@ function ___getPage(){
 			item.innerText = i;
 		}
 		
-		data = page;	
+		uploader.data = page;	
 		
 	}, 4000);	
 }
 
-___getPage();
+
 
 
 
@@ -90,7 +92,7 @@ function uploadAnimation(event, clback) {
 	var self = this;
 	this.responseData = null;									// ?
 	
-	
+	___getPage(self);
 
 	
 	/*! Start animation for clicked element
@@ -133,14 +135,14 @@ function uploadAnimation(event, clback) {
 		
 			var backUpValue = self.sender.innerText;			
 			
-			if (!data && attempts++ < self.attemptLot){
+			if (!self.data && attempts++ < self.attemptLot){
 
 				self.sender.innerText = "Попытка № " + attempts;
 				setTimeout(wait_contant, self.timeOut);					// recursive wait_contant
 
 				return;
 			}
-			else if(!data && attempts>=self.attemptLot) {
+			else if(!self.data && attempts>=self.attemptLot) {
 						
 				self.sender.innerText = "Попробовать еще";					
 				_HideAnimation();
@@ -159,11 +161,10 @@ function uploadAnimation(event, clback) {
 	}	
 
 
-
 	/*!
-		- Резко и финнишно показывает bottomMoreButton
-		- Резко и финнишно показывает панель страниц
-		- (Загружает data из content_load()):
+		- Резко и финишно показывает bottomMoreButton
+		- Резко и финишно показывает панель страниц
+		- (Загружает data из contentUpload()):
 			- плавно скрывает анимацию 
 			- Удаляет анимацию (в новом фрейме)
 			- Назначает номер страницы для существующего контента (в новом фрейме)		
@@ -175,12 +176,12 @@ function uploadAnimation(event, clback) {
 		// show bottomMoreButton
 		bottomMoreButton.style.display = 'block';
 		bottomMoreButton.style.opacity = '1';
-		bottomMoreButton.onclick = self.uploadAnimate;
+		bottomMoreButton.onclick = uploadAnimation;
 		// show pages_panel
 		pages_panel.style.display = 'block';
+		pages_panel.style.opacity = 1;
 
-
-		var currentPage = contentUpload(data, [pages_panel]);
+		var currentPage = contentUpload(self.data, [pages_panel]);
 		// var active_lick = dom.get('.pages .active')
 
 		var pages_links = dom.get('.pages').children;
@@ -227,8 +228,7 @@ function uploadAnimation(event, clback) {
 	*/
 	var contentUpload = function(nav_elems){
 	
-		var uploadBtn = self.sender;  // uploadBtn - clicked button that transform here to page number label
-		var item = document.querySelector('.container');	//?
+		var uploadBtn = self.sender;  // uploadBtn - clicked button that transform here to page number label		
 	
 		_HideAnimation();
 
@@ -251,7 +251,7 @@ function uploadAnimation(event, clback) {
 			uploadBtn.innerText = pageNumber;	
 			
 	// insert new page after number page(before new next page) 
-			uploadBtn.parentNode.insertBefore(data, uploadBtn.nextSibling);
+			uploadBtn.parentNode.insertBefore(self.data, uploadBtn.nextSibling);
 			
 	// 	show pages navigation panel (vs numbers of nearest pages):
 			for (var i=0;i<nav_elems.length;i++) nav_elems[i].style.opacity = '1';
@@ -259,7 +259,7 @@ function uploadAnimation(event, clback) {
 	// smooth scroll if browser supports it:		
 			if (uploadBtn.style.scrollBehavior !== void 0){
 				
-				data[self.finishScroll].scrollIntoView({
+				self.data[self.finishScroll].scrollIntoView({
 					behavior : 'smooth', 
 					block: "end", 
 					inline: "center"
@@ -303,7 +303,6 @@ function uploadAnimation(event, clback) {
 		return { elem : await_animate };
 	}	
 	
-
 
 
 	/*! hide and insert new MoreButton and than _InitialAnimation() and start animation in 
